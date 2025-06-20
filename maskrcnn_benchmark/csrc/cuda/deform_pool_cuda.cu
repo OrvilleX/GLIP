@@ -7,8 +7,10 @@
 
 #include <ATen/ATen.h>
 #include <ATen/cuda/CUDAContext.h>
+#include <ATen/cuda/CUDAEvent.h>
+#include <ATen/ceil_div.h>
+#include <ATen/cuda/ThrustAllocator.h>
 
-#include <THC/THC.h>
 #include <THC/THCDeviceUtils.cuh>
 
 #include <vector>
