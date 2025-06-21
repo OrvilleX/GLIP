@@ -39,6 +39,7 @@ class GLIPDemo(object):
             self.model.eval()
             self.device = torch.device(cfg.MODEL.DEVICE)
             self.model.to(self.device)
+        self.color = 255
         self.min_image_size = min_image_size
         self.show_mask_heatmaps = show_mask_heatmaps
         self.masks_per_dim = masks_per_dim
