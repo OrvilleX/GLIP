@@ -12,17 +12,18 @@ class BertEncoder(nn.Module):
         super(BertEncoder, self).__init__()
         self.cfg = cfg
         self.bert_name = cfg.MODEL.LANGUAGE_BACKBONE.MODEL_TYPE
+        self.weight_path = cfg.MODEL.LANGUAGE_BACKBONE.WEIGHT
         print("LANGUAGE BACKBONE USE GRADIENT CHECKPOINTING: ", self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT)
 
         if self.bert_name == "bert-base-uncased":
-            config = BertConfig.from_pretrained(self.bert_name)
+            config = BertConfig.from_pretrained(self.weight_path)
             config.gradient_checkpointing = self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT
-            self.model = BertModel.from_pretrained(self.bert_name, add_pooling_layer=False, config=config)
+            self.model = BertModel.from_pretrained(self.weight_path, add_pooling_layer=False, config=config)
             self.language_dim = 768
         elif self.bert_name == "roberta-base":
-            config = RobertaConfig.from_pretrained(self.bert_name)
+            config = RobertaConfig.from_pretrained(self.weight_path)
             config.gradient_checkpointing = self.cfg.MODEL.LANGUAGE_BACKBONE.USE_CHECKPOINT
-            self.model = RobertaModel.from_pretrained(self.bert_name, add_pooling_layer=False, config=config)
+            self.model = RobertaModel.from_pretrained(self.weight_path, add_pooling_layer=False, config=config)
             self.language_dim = 768
         else:
             raise NotImplementedError
